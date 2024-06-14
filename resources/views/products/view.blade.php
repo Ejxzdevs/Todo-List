@@ -7,14 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Create Products</h1>
-    <form action="{{ route('product.store') }}" method="post">
+    <label for="">VIEW </label>
+    <form action="{{route('product.edit',$product->id)}}" method="post">
         @csrf
-        @method('post');
-        name <input type="text" name="name">
-        price <input type="text" name="price">
+        @method('put');
+        <input type="text" name="name" value="{{$product->name}}">
+        <input type="text" name="price" value="{{$product->price}}">
         <input type="submit" value="submit" >
     </form>
-    <a href="{{ route('index') }}">home</a>
 </body>
 </html>

@@ -18,12 +18,31 @@ class ProductController extends Controller
         return view('products.create');
     }
 
-    public function store(request $request){
+    public function store(Request $request){
         $data = $request->validate([
             'name' => 'required|string',
             'price' => 'required|integer',
         ]);
         Product::create($data);
-        return redirect()->route('product.create')->with('success', 'Product created successfully!');
+        return redirect()->route('index');
+    }
+
+    public function viewDetails(product $product){
+        return view('products.view',['product' => $product]);
+    }
+
+    public function editDetails(Request $request,Product $product) {
+        $data = $request->validate([
+            'name' => 'required|string',
+            'price' => 'required|integer',
+        ]);
+        $product->update($data);
+        return redirect()->route('product.details', $product->id);
+        
+    }
+
+    public function deleteDetails(Product $product){
+        $product->delete();
+        return redirect()->route('index');
     }
 }

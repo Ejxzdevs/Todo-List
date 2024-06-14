@@ -11,13 +11,20 @@
     <ul>
         @foreach ($products as $product)
             <li>
-                Name: {{ $product->name }} <br>
+                Name: {{ $product->name }} 
+            </li>
+            <li>
                 Price: {{ $product->price }}
             </li>
+            <li>
+                <a href="{{ route('product.details', ['product' => $product]) }}">edit</a>
+            </li>
+            <li>
+                <a href="{{ route('product.delete', ['product' => $product]) }}">delete</a>
+            </li>
+            
         @endforeach
     </ul>
-        
-    <h1>HELLO WORLD</h1>
     <a href="{{ route('product.create') }}">go to create</a>
 </body>
-</html>
+</html> 
