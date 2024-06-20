@@ -8,11 +8,11 @@
 </head>
 <body>
     <h1>Create Products</h1>
-    <form action="{{ route('product.store') }}" method="post">
+    <form action="{{ route('tasks.store') }}" method="post">
         @csrf
         @method('post');
-        name <input type="text" name="name">
-        price <input type="text" name="price">
+        task name <input type="text" name="task_name">
+        description <input type="text" name="description">
         <input type="submit" value="submit" >
     </form>
     <a href="{{ route('index') }}">home</a>

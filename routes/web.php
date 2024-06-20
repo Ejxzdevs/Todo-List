@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TaskController;
 
-Route::get('/', [ProductController::class, 'index'])->name('index');
-Route::prefix('product')->group(function () {
-    Route::get('/create', [ProductController::class, 'create'])->name('product.create');
-    Route::post('/store', [ProductController::class, 'store'])->name('product.store');
-    Route::get('/{product}', [ProductController::class, 'viewDetails'])->name('product.details');
-    Route::put('/{product}/edit', [ProductController::class, 'editDetails'])->name('product.edit');
-    Route::get('/{product}/delete', [ProductController::class, 'deleteDetails'])->name('product.delete');
+Route::get('/', [TaskController::class,'index'])->name('index');
+Route::prefix('task')->group(function () {
+    Route::get('/create', [TaskController::class, 'create'])->name('tasks.create');
+    Route::post('/store', [TaskController::class, 'store'])->name('tasks.store');
+    Route::get('/{task}', [TaskController::class, 'viewDetails'])->name('tasks.details');
+    Route::put('/{task}/edit', [TaskController::class, 'editDetails'])->name('tasks.edit');
+    Route::get('/{task}/delete', [TaskController::class, 'deleteDetails'])->name('tasks.delete');
 });
