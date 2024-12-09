@@ -5,14 +5,13 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 class TaskController extends Controller
 {
-    //
+    // DISPLAY TASKS
     public function index(){
         $tasks = Task::all();
         return view('tasks.index',['tasks' => $tasks]);
     }
-    public function create(){
-        return view('tasks.create');
-    }
+
+    // CREATE TASK
     public function store(Request $request){
         $data = $request->validate([
             'task_name' => 'required|string|max:50',
@@ -22,30 +21,28 @@ class TaskController extends Controller
         return redirect()->route('index');
     }
 
-    public function viewDetails(Task $task){
-        return view('tasks.view',['task' => $task]);
-    }
-    public function editDetails(Request $request, Task $task) {
+    // UPDATE TASK
+    public function updateDetails(Request $request) {
         $data = $request->validate([
+            'task_id' => 'required|int',
             'task_name' => 'required|string|max:50',
             'description' => 'required|string|max:255',
-            'status' => 'required|in:Completed,Pending', // Added required rule
+            'status' => 'required|in:Completed,Pending',
         ]);
         
-        $task->update($data);
-        return redirect()->route('tasks.details', $task->id)->with('success', 'Task updated successfully!');
+        Task::where('id', $data['task_id'])->update([
+            'task_name' => $data['task_name'],
+            'description' => $data['description'],
+            'status' => $data['status'],
+        ]);
+        return redirect()->route('index')->with('success', 'Task updated successfully!');
     }
+    
+    // DELETE TASK
     public function deleteDetails($id){
         $task = Task::findOrFail($id);
         $task->delete();
         return redirect()->route('index');
     }
-    public function doneT($id){
-        $task = Task::findOrFail($id);
-        if ($task) {
-            $task->status = 'Done';
-            $task->save();
-        }
-        return redirect()->route('index');
-    }
+   
 }
